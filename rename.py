@@ -1,15 +1,34 @@
 import os
+import sys
 import hashlib
 
-def sha1(file):
+def hash(file, method):
     f = open(file, 'rb')
-    sum = hashlib.sha1(f.read()).hexdigest()
+    sum = ""
+    if method == "sha1":
+        sum = hashlib.sha1(f.read()).hexdigest()
+    elif method == "sha224":
+        sum = hashlib.sha224(f.read()).hexdigest()
+    elif method == "sha256":
+        sum = hashlib.sha256(f.read()).hexdigest()
+    elif method == "sha384":
+        sum = hashlib.sha384(f.read()).hexdigest()
+    elif method == "sha512":
+        sum = hashlib.sha512(f.read()).hexdigest()
+    elif method == "md5":
+        sum = hashlib.md5(f.read()).hexdigest()
     f.close()
     return sum
 
 for file in os.listdir('.'):
-    if not file.endswith('.py'):
+    if not file == "rename.py":
+
         filename, file_extension = os.path.splitext(file)
-        sum = sha1(file)
+
+        if len(sys.argv) >= 2:
+            sum = hash(file, sys.argv[1])
+        else:
+            sum = hash(file, "md5")
+
         print(file + ' --> ' + sum)
         os.rename(file, sum + file_extension)
