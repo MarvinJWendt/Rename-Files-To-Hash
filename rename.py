@@ -22,31 +22,35 @@ def hash(file, method):
         return sum
     else:
         return "dir"
+        
+unsorted = os.listdir('.')
+filelist = sorted(unsorted, key=len)
 
-for file in os.listdir('.'):
-    if not file == "rename.py":
+for file in filelist:
+    if not file == "!rename.py":
+        if not file == "!random.bat":
 
-        filename, file_extension = os.path.splitext(file)
+            filename, file_extension = os.path.splitext(file)
 
-        if len(sys.argv) >= 2:
-            sum = hash(file, sys.argv[1])
-        else:
-            sum = hash(file, "md5")
-        try:
-            print("Trying to rename: " + file)
-
-            if os.path.isfile(sum + file_extension):
-                print("file " + sum + file_extension + " already exists")
-                if not file == (sum + file_extension):
-                    print("Removing: " + file + " because it is a duplicate")
-                    os.remove(file)
-
-            elif not sum == "dir":
-                os.rename(file, sum + file_extension)
-                print(file + ' --> ' + sum + file_extension)
+            if len(sys.argv) >= 2:
+            	sum = hash(file, sys.argv[1])
             else:
-                print("Skipping directory " + file)
-        except Exception as e:
-            print("Error displaying file name.")
+            	sum = hash(file, "md5")
+            try:
+            	print("Trying to rename: " + file)
+
+            	if os.path.isfile(sum + file_extension):
+            		print("file " + sum + file_extension + " already exists")
+            		if not file == (sum + file_extension):
+            			print("Removing: " + file + " because it is a duplicate")
+            			os.remove(file)
+
+            	elif not sum == "dir":
+            		os.rename(file, sum + file_extension)
+            		print(file + ' --> ' + sum + file_extension)
+            	else:
+            		print("Skipping directory " + file)
+            except Exception as e:
+            	print("Error displaying file name.")
 
         print("")
