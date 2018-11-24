@@ -7,7 +7,7 @@
 The file is written in the language `python` which means you have to have `python` installed.
 If not: Do so [here](https://www.python.org/).
 
-To run the script open a command prompt/shell and type in: `python rename.py`
+To run the script open a command prompt/shell and type in: `python !rename.py`
 This will rename all files (itself excluded) to the hashing algorithm `md5`.
 
 If you want to use another hashing algorithm from the list use this command:
